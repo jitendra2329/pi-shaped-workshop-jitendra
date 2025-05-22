@@ -36,3 +36,36 @@ Kubernetes helps manage containers at scale by providing:
     Declarative Configuration: Describes desired state via YAML manifests.
 
     Auto-scaling: Increases/decreases pods based on CPU/memory metrics.
+
+
+**Why do we set requests and limits for CPU/memory in production-grade products?**
+
+    Requests specify the minimum guaranteed resources a container needs. Kubernetes uses requests to decide where to schedule a pod — it won’t place a pod on a node unless the node has at least that much available resource.
+
+    Limits specify the maximum resources a container can use. If the container tries to use more, it may be throttled (CPU) or killed (memory).
+
+Benefits:
+
+    Fair resource sharing: Prevents a single container from starving others by hogging resources.
+
+    Stability & reliability: Avoids resource exhaustion on nodes that could crash other workloads.
+
+    Better scheduling: Kubernetes can efficiently pack pods on nodes based on requests, improving utilization.
+
+    Cost control: Helps teams control cloud resource costs by capping resource usage.
+
+**When would a product team apply node affinity in Kubernetes?**
+
+Node affinity is used when you want to control where your pods run based on node characteristics.
+
+Common scenarios:
+
+    Hardware requirements: Pods need nodes with special hardware, e.g., GPU, SSDs, or high-memory machines.
+
+    Compliance & security: Run certain workloads only on specific nodes that meet security policies or geographic locations.
+
+    Performance optimization: Schedule latency-sensitive pods on nodes with faster network or CPU.
+
+    Workload isolation: Separate critical workloads from others by restricting which nodes they run on.
+
+    Cost optimization: Assign pods to cheaper nodes if performance is less critical.
